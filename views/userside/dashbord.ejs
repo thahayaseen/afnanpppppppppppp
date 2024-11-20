@@ -3,20 +3,52 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>WeebsCorner - Premium PC Parts & Gaming Gear</title>
+    <title>Print Whiz - Professional Printing Services</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">     
     <style>
         .hero-gradient {
-            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+            background: linear-gradient(135deg, #0A2342 0%, #156AB4 100%);
         }
+        .swiper {
+            width: 100%;
+            height: 400px;
+        }
+        @media (min-width: 768px) {
+            .swiper {
+                height: 600px;
+            }
+        }
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        .navbar {
+            background-color: #0A2342;
+        }
+        .product-card h3 {
+    border-top: 4px solid #ddd; /* Adjust the border width and color as needed */
+    padding-top: 10px; /* Adds some space between the text and the border */
+    margin-top: 10px; /* Adjust as needed */
+}
+
         .product-card {
             transition: transform 0.2s ease-in-out;
+            background-color: #F5F5F5;
         }
         .product-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
         }
         .custom-shape-divider-bottom {
             position: absolute;
@@ -40,8 +72,7 @@
             color: white !important;
         }
         .navbar {
-            background-color: #5F42E8;
-            
+            background-color: #4431a3;
         }
         .offer-badge {
             position: absolute;
@@ -121,6 +152,19 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
         }
+
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+            .swiper-slide h1 {
+                font-size: 2rem;
+            }
+            .swiper-slide p {
+                font-size: 1rem;
+            }
+            .product-card {
+                margin-bottom: 1rem;
+            }
+        }
     </style>
 </head>
 
@@ -128,87 +172,179 @@
     <header class="headerscolor navbar shadow-md fixed w-full z-50">
         <nav class="max-w-7xl mx-auto navbar px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <a href="/" class="flex-shrink-0 flex items-center">
-                        <img src="/uploads/logo.png" alt="WeebsCorner Logo" class="logo mr-3">
-                        <span class="text-2xl navbar-brand font-bold text-white hidden sm:block">WeebsCorner</span>
-                    </a>
-                    <div class="hidden md:block">
-                        <div class="ml-10 flex items-baseline space-x-4">
-                            <a href="/product" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:text-gray-200 transition">All Products</a>
-                           
-                        </div>
-                    </div>
+              <div class="flex items-center">
+                <a href="/" class="flex-shrink-0 flex items-center">
+                  <img src="/uploads/logo.png" alt="WeebsCorner Logo" class="logo mr-3">
+                  <span class="text-2xl navbar-brand font-bold text-white hidden sm:block">Print Whiz</span>
+                </a>
+                <div class="hidden md:block">
+                  <div class="ml-10 flex items-baseline space-x-4">
+                    <a href="/product" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:text-gray-200 transition">All Products</a>
+                  </div>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <a href="/wishlist" class="text-white hover:text-gray-200 transition">
-                        <i class="far fa-heart text-xl"></i>
-                    </a>
-                    <a href="/cart" class="text-white hover:text-gray-200 transition relative">
-                        <i class="fas fa-shopping-cart text-xl"></i>
-                        <% if(cartcount>=0){ %>
-                        <span class="cart-count"><%= cartcount %></span>
-                        <% } %>
-                    </a>
-                    <a href="/user/mydash" class="text-white hover:text-gray-200 transition">
-                        <i class="far fa-user text-xl"></i>
-                    </a>
-                </div>
+              </div>
+              <div class="flex items-center space-x-4">
+                <a href="/wishlist" class="text-white hover:text-gray-200 transition">
+                  <i class="far fa-heart text-xl"></i>
+                </a>
+                <a href="/cart" class="text-white hover:text-gray-200 transition relative">
+                  <i class="fas fa-shopping-cart text-xl"></i>
+                  <% if(cartcount>=0){ %>
+                  <span class="cart-count"><%= cartcount %></span>
+                  <% } %>
+                </a>
+                <a href="/user/mydash" class="text-white hover:text-gray-200 transition">
+                  <i class="far fa-user text-xl"></i>
+                </a>
+              </div>
             </div>
-        </nav>
+           </nav>
     </header>
 
     <main class="pt-16">
         <!-- Hero Section -->
-        <section class="hero-gradient relative min-h-[600px] flex items-center">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-white">
-                <div class="max-w-3xl">
-                    <h1 class="text-5xl font-bold mb-6">Build Your Dream Gaming PC</h1>
-                    <p class="text-xl mb-8">Premium components, expert builds, and unmatched performance for serious gamers.</p>
-               
-                  <br>
-                  <br>
-                  
+        <section class="hero-gradient relative">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" style="background-image: url('/dashadd/slide1.jpg')">
+                        <div class="text-center max-w-3xl px-4">
+                            <h1 class="text-3xl md:text-5xl font-bold mb-4 md:mb-6">Professional Printing Solutions</h1>
+                            <p class="text-lg md:text-xl mb-6 md:mb-8">High-quality printing for businesses and individuals. Fast, affordable, and precise.</p>
+                            <a href="/services" class="bg-white text-blue-900 px-4 py-2 md:px-6 md:py-3 rounded-full hover:bg-gray-100 transition">Explore Services</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" style="background-image: url('/dashadd/slide1.jpg')">
+                        <div class="text-center max-w-3xl px-4">
+                            <h1 class="text-3xl md:text-5xl font-bold mb-4 md:mb-6">Professional Printing Solutions</h1>
+                            <p class="text-lg md:text-xl mb-6 md:mb-8">High-quality printing for businesses and individuals. Fast, affordable, and precise.</p>
+                            <a href="/services" class="bg-white text-blue-900 px-4 py-2 md:px-6 md:py-3 rounded-full hover:bg-gray-100 transition">Explore Services</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" style="background-image: url('/dashadd/slide1.jpg')">
+                        <div class="text-center max-w-3xl px-4">
+                            <h1 class="text-3xl md:text-5xl font-bold mb-4 md:mb-6">Professional Printing Solutions</h1>
+                            <p class="text-lg md:text-xl mb-6 md:mb-8">High-quality printing for businesses and individuals. Fast, affordable, and precise.</p>
+                            <a href="/services" class="bg-white text-blue-900 px-4 py-2 md:px-6 md:py-3 rounded-full hover:bg-gray-100 transition">Explore Services</a>
+                        </div>
+                    </div>
+                    <!-- Add more swiper-slide elements here -->
                 </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
-           
         </section>
 
         <!-- Featured Categories -->
-        <section class="py-16 bg-white">
+        <section class="py-12 md:py-16 bg-gradient-to-br from-white via-blue-50 to-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl font-bold text-center mb-12">Shop Now</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                    <a href="#" class="product-card bg-gray-50 rounded-xl p-6 text-center hover:shadow-lg">
-                        <i class="fas fa-microchip text-4xl text-indigo-600 mb-4"></i>
-                        <h3 class="text-xl font-semibold">Processors</h3>
-                    </a>
-                    <a href="#" class="product-card bg-gray-50 rounded-xl p-6 text-center hover:shadow-lg">
-                        <i class="fas fa-tv text-4xl text-indigo-600 mb-4"></i>
-                        <h3 class="text-xl font-semibold">Graphics Cards</h3>
-                    </a>
-                    <a href="#" class="product-card bg-gray-50 rounded-xl p-6 text-center hover:shadow-lg">
-                        <i class="fas fa-memory text-4xl text-indigo-600 mb-4"></i>
-                        <h3 class="text-xl font-semibold">Memory</h3>
-                    </a>
-                    <a href="#" class="product-card bg-gray-50 rounded-xl p-6 text-center hover:shadow-lg">
-                        <i class="fas fa-hdd text-4xl text-indigo-600 mb-4"></i>
-                        <h3 class="text-xl font-semibold">Storage</h3>
-                    </a>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-gray-800 tracking-tight">
+                    Explore Our Products
+                    <div class="h-1 w-24 bg-blue-500 mx-auto mt-3 rounded-full"></div>
+                </h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+                    <div class="group product-card transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl bg-white rounded-2xl overflow-hidden border border-gray-100">
+                        <div class="relative overflow-hidden">
+                            <img src="/dashcategory/card.jpg" alt="Business Cards" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300">
+                            <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="p-5 text-center">
+                            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-2">Business Cards</h3>
+                            <p class="text-sm text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Professional design solutions</p>
+                        </div>
+                    </div>
+        
+                    <div class="group product-card transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl bg-white rounded-2xl overflow-hidden border border-gray-100">
+                        <div class="relative overflow-hidden">
+                            <img src="/dashcategory/big-black-organizer-large-book-isolated-grey-background.png" alt="Books" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300">
+                            <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="p-5 text-center">
+                            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-2">Books</h3>
+                            <p class="text-sm text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Quality print & binding</p>
+                        </div>
+                    </div>
+        
+                    <div class="group product-card transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl bg-white rounded-2xl overflow-hidden border border-gray-100">
+                        <div class="relative overflow-hidden">
+                            <img src="/dashcategory/cer.webp" alt="Document Binding" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300">
+                            <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="p-5 text-center">
+                            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-2">Certificate</h3>
+                            <p class="text-sm text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Elegant design</p>
+                        </div>
+                    </div>
+        
+                    <div class="group product-card transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl bg-white rounded-2xl overflow-hidden border border-gray-100">
+                        <div class="relative overflow-hidden">
+                            <img src="/dashcategory/document.jpg" alt="Documents" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300">
+                            <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="p-5 text-center">
+                            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-2">Documents</h3>
+                            <p class="text-sm text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Precise printing</p>
+                        </div>
+                    </div>
+        
+                    <div class="group product-card transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl bg-white rounded-2xl overflow-hidden border border-gray-100">
+                        <div class="relative overflow-hidden">
+                            <img src="/dashcategory/poster.jpg" alt="Poster" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300">
+                            <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="p-5 text-center">
+                            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-2">Poster</h3>
+                            <p class="text-sm text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Creative displays</p>
+                        </div>
+                    </div>
+        
+                    <div class="group product-card transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl bg-white rounded-2xl overflow-hidden border border-gray-100">
+                        <div class="relative overflow-hidden">
+                            <img src="/dashcategory/bookbinding.webp" alt="Document Binding" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300">
+                            <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="p-5 text-center">
+                            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-2">Document Binding</h3>
+                            <p class="text-sm text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Professional finish</p>
+                        </div>
+                    </div>
+        
+                    <div class="group product-card transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl bg-white rounded-2xl overflow-hidden border border-gray-100">
+                        <div class="relative overflow-hidden">
+                            <img src="/dashcategory/collection-colorful-labels-christmas-sale.png" alt="Stickers and Labels" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300">
+                            <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="p-5 text-center">
+                            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-2">Stickers and Labels</h3>
+                            <p class="text-sm text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Vibrant designs</p>
+                        </div>
+                    </div>
+                    <div class="group product-card transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl bg-white rounded-2xl overflow-hidden border border-gray-100">
+                        <div class="relative overflow-hidden">
+                            <div class="relative overflow-hidden">
+                                <img src="/dashcategory/all.webp" alt="Stickers and Labels" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300">
+                                <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                            </div>
+                            
+                            <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="p-5 text-center">
+                            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-2">All Products</h3>
+                            <p class="text-sm text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Vibrant designs</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
-
         <!-- Featured Products -->
-        <section class="py-16 bg-gray-50">
+        <section class="py-12 md:py-16 bg-gray-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl font-bold text-center mb-12">Featured Products</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12">Featured Products</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
                     <% products.forEach((product) => { %>
                         <% if(!product.unlist) { %>
-                            
                             <div class="product-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl relative">
-                                    <a href="/product/<%= product._id %>" class="product-card-link">
+                                <a href="/product/<%= product._id %>" class="product-card-link">
                                     <!-- Offer Badge -->
                                     <% if(product.offer > 0) { %>
                                         <span class="offer-badge">
@@ -224,14 +360,14 @@
                                         <img src="/uploads/<%= product.images[0] %>" alt="<%= product.name %>" class="w-full h-48 object-cover">
                                     </div>
                             
-                                    <div class="p-6">
+                                    <div class="p-4 md:p-6">
                                         <!-- Product Category -->
                                         <div class="text-sm text-indigo-600 font-medium mb-2">
                                             <%= product.category %>
                                         </div>
                             
                                         <!-- Product Name -->
-                                        <h3 class="text-xl font-semibold mb-3"><%= product.name %></h3>
+                                        <h3 class="text-lg md:text-xl font-semibold mb-3"><%= product.name %></h3>
                             
                                         <!-- Pricing Section -->
                                         <div class="price-tag mb-4">
@@ -258,18 +394,14 @@
                                                 </span>
                                             <% } %>
                                         </div>
-                            
-                                        
                                     </a>                 
-                                        <button class="add-to-cart-btn w-full bg-indigo-600 text-white py-2.5 px-4 rounded-lg hover:bg-indigo-700 transition flex items-center justify-center space-x-2"
-                                        onclick="addToCart('<%= product._id %>','<%= product.dealprice %>','<%=product.name%>' )">
-                                        <i class="fas fa-cart-plus"></i>
-                                        <span>Add to Cart</span>
+                                    <button class="add-to-cart-btn w-full bg-indigo-600 text-white py-2 md:py-2.5 px-4 rounded-lg hover:bg-indigo-700 transition flex items-center justify-center space-x-2"
+                                    onclick="addToCart('<%= product._id %>','<%= product.dealprice %>','<%=product.name%>' )">
+                                    <i class="fas fa-cart-plus"></i>
+                                    <span>Add to Cart</span>
                                     </button>
-                                    </div>
                                 </div>
-                            
-                            
+                            </div>
                         <% } %>
                     <% }) %>
                 </div>
@@ -278,9 +410,9 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
+    <footer class="bg-gray-900 text-white py-8 md:py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div>
                     <img src="/uploads/logo.png" alt="WeebsCorner Logo" class="h-8 mb-4">
                     <p class="text-gray-400">Your ultimate destination for premium PC parts and gaming gear.</p>
@@ -316,56 +448,71 @@
             </div>
         </div>
     </footer>
-<script>
-   let count= document.querySelector('.cart-count').innerText
-   console.log(count);
-   
-    
-    function addToCart(pid,price,productName){
- 
-        fetch('/cart',{
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json'
-            },
-            body:JSON.stringify({priductisdata:pid,price:price})
-        })
-        .then(res=>res.json())
-        .then(res=>{
-            console.log('here');
-            
-            if(res.success==true){
-                count++
-                document.querySelector('.cart-count').innerText=count
-                Swal.fire({
-                title: 'Added to Cart!',
-                text: `${productName} has been added to your cart`,
-                icon: 'success',
-                showCancelButton: true,
-                confirmButtonColor: '#4F46E5',
-                cancelButtonColor: '#3730A3',
-                confirmButtonText: 'View Cart',
-                cancelButtonText: 'Continue Shopping'
-            })
-            .then(resp=>{
-                if(resp.isConfirmed){
-                    window.location.href='/cart'
-                }
-            })
-           
-            }
-            else {
-                Swal.fire({
-                title: 'Oops...',
-                text: res.message,
-                icon: 'error',
-                confirmButtonColor: '#4F46E5'
-            });
-            }
-        })
 
-    }
-</script>
+    <script>
+        let count = document.querySelector('.cart-count').innerText;
+        console.log(count);
+        
+        function addToCart(pid, price, productName) {
+            fetch('/cart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({priductisdata: pid, price: price})
+            })
+            .then(res => res.json())
+            .then(res => {
+                console.log('here');
+                
+                if(res.success == true) {
+                    count++;
+                    document.querySelector('.cart-count').innerText = count;
+                    Swal.fire({
+                        title: 'Added to Cart!',
+                        text: `${productName} has been added to your cart`,
+                        icon: 'success',
+                        showCancelButton: true,
+                        confirmButtonColor: '#4F46E5',
+                        cancelButtonColor: '#3730A3',
+                        confirmButtonText: 'View Cart',
+                        cancelButtonText: 'Continue Shopping'
+                    })
+                    .then(resp => {
+                        if(resp.isConfirmed) {
+                            window.location.href = '/cart';
+                        }
+                    });
+                }
+                else {
+                    Swal.fire({
+                        title: 'Oops...',
+                        text: res.message,
+                        icon: 'error',
+                        confirmButtonColor: '#4F46E5'
+                    });
+                }
+            });
+        }
+    </script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            spaceBetween: 30,
+            centeredSlides: true,
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </body>
 </html>
