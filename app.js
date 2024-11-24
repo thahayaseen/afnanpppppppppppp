@@ -15,7 +15,7 @@ app.set('view engine', 'ejs');
 app.set(mongoose)
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(express.json({limit:'10mb'}));
 
 // Session setup
 app.use(session({

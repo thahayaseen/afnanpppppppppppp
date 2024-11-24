@@ -12,15 +12,6 @@ nav {
     min-height: 70px;
 }
 
-nav .navbar-brand .logo {
-    padding: 10px 15px;
-    border-radius: 8px;
-}
-
-nav .navbar-brand .logo .h2 {
-    margin: 0;
-}
-
 nav .navbar-brand .h4 {
     margin-bottom: 0px;
     font-weight: 900;

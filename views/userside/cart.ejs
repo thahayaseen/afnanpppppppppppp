@@ -18,41 +18,9 @@
             font-family: 'Roboto', sans-serif;
         }
 
-        .navbar {
-            background-color: var(--primary-color);
-            padding: 15px 0;
-        }
+      
 
-        .navbar-brand {
-            font-weight: bold;
-            font-size: 28px;
-            color: white !important;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .nav-link {
-            color: white !important;
-            margin-right: 20px;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-link:hover {
-            color: var(--accent-color) !important;
-        }
-
-        .navbar-nav .nav-item:last-child .nav-link {
-            margin-right: 0;
-        }
-
-        .navbar-icons {
-            display: flex;
-            align-items: center;
-        }
-
-        .navbar-icons .nav-link {
-            padding: 0 10px;
-        }
+      
 
         .star-rating {
             color: var(--accent-color);
@@ -126,36 +94,11 @@
 </head>
 
 <body class="bg-light">
-    <header class="bg-gradient text-white shadow">
+   
         <nav class="navbar navbar-expand-md p-0 navbarbg">
-            <div class="container-sm">
-                <a class="navbar-brand fs-4 fw-bold" href="/">WeebsCorner</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar container-fluid" id="navbarNav">
-                    <ul class="navbar-nav p-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/product">All Products</a>
-                        </li>
-                       
-                    </ul>
-                    <div class="d-flex">
-                        <a href="/wishlist" class="btn btn-link text-white me-2">
-                            <i class="fas fa-heart"></i>
-                        </a>
-                        <a href="/user/mydash" class="btn btn-link text-white me-2">
-                            <i class="fas fa-user"></i>
-                        </a>
-                      
-                        <a href="/logout" class="btn btn-link text-white">
-                            <i class="fas fa-sign-out-alt"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
+          <%-include('navbar') %>
         </nav>
-    </header>
+
 
     <% if(!cart.product.length>0){ %>
     <div class="container">
@@ -173,7 +116,7 @@
         </div>
     </div>
     <% } else { %>
-    <div class="container py-5">
+    <div class="container " style="margin-top: 100px;">
         <div class="row">
             <div class="col-lg-8">
                 <h1 class="mb-4">Your Shopping Cart</h1>

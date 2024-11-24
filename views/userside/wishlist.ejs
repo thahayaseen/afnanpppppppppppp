@@ -124,45 +124,11 @@
 <body>
     <header class="bg-gradient  text-white shadow">
         <nav class="navbar navbar-expand-md p-0 navbarbg">
-            <div class="container-sm">
-                <a class="navbar-brand fs-4 fw-bold" href="/">WeebsCorner</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar container-fluid" id="navbarNav">
-                    <ul class="navbar-nav p-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/product">All Products</a>
-                        </li>
-                       
-                    </ul>
-                    <div class="d-flex">
-                        <a href="/wishlist" class="btn btn-link text-white me-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                            </svg>
-                        </a>
-                        <a href="/user/mydash" class="btn btn-link text-white me-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-                            </svg>
-                        </a>
-                        <a href="/cart" class="btn btn-link text-white me-2 relative">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
-                                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-                            </svg>
-                            <% if(cartcount>=0){ %>
-                                <span class="cart-count"><%= cartcount %></span>
-                                <% } %>
-                        </a>
-                        
-                    </div>
-                </div>
-            </div>
-        </nav>
+            <%-include('navbar') %>
+          </nav>
     </header>
 
-    <main class="container my-5">
+    <main class="container " style="margin-top: 100px;">
         <h1 class="text-white mb-4">My Wishlist</h1>
         <div class="card">
             <div class="card-body">
@@ -170,7 +136,7 @@
                 <div class="wishlist-item">
                     <div class="row align-items-center">
                         <div class="col-md-2" style="width: 210px;">
-                            <img src="/uploads/<%=data.images[0]  %>" alt="Product 3"  style="width: 200px; height: 150px; border-radius: 20px; " class="product-image">
+                            <img src="/uploads/<%=data.images[0]%>" alt="Product 3"  style="width: 200px; height: 150px; border-radius: 20px; " class="product-image">
                         </div>
                         <div class="col">
                             <h5 class="mb-0"><%=data.name%></h5>

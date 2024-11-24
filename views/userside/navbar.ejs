@@ -1,50 +1,128 @@
-.navbar {
-    background-color: #5F42E8;
-    padding: 15px 0;
-}
-</style>
+<style>
+    
+    /* Navbar Styles */
+    .navbar {
+        background: #4431a3;
+        padding: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .navbar-brand {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: white;
+        font-size: 1.25rem;
+        font-weight: bold;
+        gap: 0.5rem;
+    }
+    
+    .navbar-brand .logo {
+        height: 40px;
+        width: auto;
+        transition: transform 0.2s ease;
+    }
+    
+    .navbar-brand .logo:hover {
+        transform: scale(1.1);
+    }
+    
+    .navbar-nav .nav-link {
+        color: white;
+        font-weight: 500;
+        transition: color 0.3s ease;
+        margin-right: 1rem;
+        text-decoration: none;
+    }
+    
+    .navbar-nav .nav-link:hover {
+        color: #ffc107;
+    }
+    
+    .navbar-toggler {
+        border: none;
+    }
+    
+    .navbar-toggler-icon {
+        background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 30 30\'%3E%3Cpath stroke=\'rgba%28255, 255, 255, 0.7%29\' stroke-width=\'2\' linecap=\'round\' linejoin=\'round\' d=\'M4 7h22M4 15h22M4 23h22\'/%3E%3C/svg%3E');
+    }
+    
+    .navbar .icon-links a {
+        color: white;
+        font-size: 1.5rem;
+        position: relative;
+        text-decoration: none;
+    }
+    
+    .navbar .icon-links a:hover {
+        color: #ffc107;
+    }
 
-</head>
+    .container-fluid {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+    
+    .cart-count {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: #FF3366;
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+    </style>
+    
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container-fluid">
+        <!-- Brand -->
+        <a class="navbar-brand" href="/">
+            <img src="/uploads/logo.png" alt="Print Whiz Logo" class="logo">
+            Print Whiz
+        </a>
 
-<body class="bg-light">
-<header class="bg-gradient text-white shadow">
-<nav class="navbar navbar-expand-md p-0 navbarbg">
-    <div class="container-sm">
-        <a class="navbar-brand fs-4 fw-bold" href="/">WeebsCorner</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <!-- Toggler Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="navbar container-fluid" id="navbarNav">
-            <ul class="navbar-nav p-0">
+
+        <!-- Navbar Links -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="/product">All Products</a>
                 </li>
-              
             </ul>
-            <div class="d-flex">
-                <a href="/wishlist" class="btn btn-link text-white me-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                    </svg>
+            <% if (typeof cartcount !== 'undefined') { %>
+               
+            
+            <!-- Icons -->
+            <div class="icon-links d-flex align-items-center gap-3">
+                <a href="/wishlist">
+                    <i class="far fa-heart"></i>
                 </a>
-                <a href="/user/mydash" class="btn btn-link text-white me-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-                    </svg>
+                <a href="/cart" class="position-relative">
+                    <i class="fas fa-shopping-cart"></i>
+                    <% if(cartcount >= 0) { %>
+                    <span class="cart-count"><%= cartcount %></span>
+                    <% } %>
                 </a>
-                <a href="/cart" class="btn btn-link text-white me-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
-                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-                    </svg>
-                </a>
-                <a href="/logout" class="btn btn-link text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
-                        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
-                    </svg>
+                <a href="/user/mydash">
+                    <i class="far fa-user"></i>
                 </a>
             </div>
+            <% } %>
         </div>
     </div>
 </nav>
-</header>
