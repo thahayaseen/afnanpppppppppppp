@@ -104,25 +104,25 @@
                     <a class="nav-link" href="/product">All Products</a>
                 </li>
             </ul>
-            <% if (typeof cartcount !== 'undefined') { %>
-               
+            
             
             <!-- Icons -->
             <div class="icon-links d-flex align-items-center gap-3">
                 <a href="/wishlist">
                     <i class="far fa-heart"></i>
                 </a>
+                <% if (typeof cartcount !== 'undefined') { %>
                 <a href="/cart" class="position-relative">
                     <i class="fas fa-shopping-cart"></i>
                     <% if(cartcount >= 0) { %>
                     <span class="cart-count"><%= cartcount %></span>
                     <% } %>
                 </a>
+                <% } %>
                 <a href="/user/mydash">
                     <i class="far fa-user"></i>
                 </a>
             </div>
-            <% } %>
         </div>
     </div>
 </nav>
