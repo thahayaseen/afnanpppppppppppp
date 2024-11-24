@@ -1,136 +1,327 @@
-<!-- partial:partials/_sidebar.html -->
-<nav class="sidebar sidebar-offcanvas position-fixed vh-100" id="sidebar">
-  <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-    <a class="sidebar-brand brand-logo" href="/admin"><img src="/assets/images/logo.svg" alt="logo" /></a>
-    <a class="sidebar-brand brand-logo-mini" href="/admin"><img src="/assets/images/logo-mini.svg" alt="logo" /></a>
-  </div>
-  <ul class="nav mt-3">
-    <li class="nav-item profile">
-      
-    </li>
-    <li class="nav-item nav-category">
-      <span class="nav-link">Navigation</span>
-    </li>
-    <!-- dashboard  -->
-    <li class="nav-item menu-items">
-      <a class="nav-link" href="/admin/dashboard" id="dashboard-link">
-        <span class="menu-icon">
-          <i class="mdi mdi-speedometer"></i>
-        </span>
-        <span class="menu-title">Dashboard</span>
-      </a>
-    </li>
-    <!-- offers -->
-    <li class="nav-item menu-items">
-      <a class="nav-link" href="/admin/offers" id="offers-link">
-        <span class="menu-icon">
-          <i class="mdi mdi-sale"></i>
-        </span>
-        <span class="menu-title">Offers</span>
-      </a>
-    </li>
-    <li class="nav-item menu-items">
-      <a class="nav-link" href="/admin/coupon" id="coupon-link">
-        <span class="menu-icon">
-          <i class="mdi mdi-ticket-percent"></i>
-        </span>
-        <span class="menu-title">Coupons</span>
-      </a>
-    </li>
-    <!-- Users -->
-    <li class="nav-item menu-items">
-      <a class="nav-link" href="/admin/users" id="users-link">
-        <span class="menu-icon">
-          <i class="mdi mdi-account-circle"></i>
-        </span>
-        <span class="menu-title">Users</span>
-      </a>
-    </li>
-    <!-- product  -->
-    <li class="nav-item menu-items">
-      <a class="nav-link" href="/admin/product" id="product-link">
-        <span class="menu-icon">
-          <i class="mdi mdi-clipboard-list"></i>
-        </span>
-        <span class="menu-title">Product</span>
-        <i class="menu-arrow"></i>
-      </a>
-    </li>
-    <!-- Category -->
-    <li class="nav-item menu-items">
-      <a class="nav-link" href="/admin/category" id="category-link">
-        <span class="menu-icon">
-          <i class="mdi mdi-shape"></i>
-        </span>
-        <span class="menu-title">Category</span>
-      </a>
-    </li>
-    <li class="nav-item menu-items">
-      <a class="nav-link" href="/admin/orders" id="orders-link">
-        <span class="menu-icon">
-          <i class="mdi mdi-basket"></i>
-        </span>
-        <span class="menu-title">Orders</span>
-      </a>
-    </li>
-    <!-- logout -->
-    <li class="nav-item menu-items">
-      <a class="nav-link" href="/logout">
-        <span class="menu-icon">
-          <i class="mdi mdi-logout"></i>
-        </span>
-        <span class="menu-title">Logout</span>
-      </a>
-    </li>
-  </ul>
-</nav>
-
+<!DOCTYPE html>
+<html>
+<head>
 <style>
-/* Add this to your CSS */
+/* Common variables */
+:root {
+  --navbar-height: 60px;
+  --sidebar-width: 260px;
+  --background-dark: #191c24;
+  --text-muted: #6c7293;
+}
+
+/* Navbar styles */
+.navbar {
+  background: var(--background-dark);
+  height: var(--navbar-height);
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  z-index: 999;
+}
+
+.navbar-brand-wrapper {
+  width: var(--navbar-height);
+  background: var(--background-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-menu-wrapper {
+  flex-grow: 1;
+  display: flex;
+  align-items: stretch;
+  padding: 0 1rem;
+  background: var(--background-dark);
+}
+
+.navbar-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.img-xs {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+/* Sidebar styles */
+.sidebar {
+  min-height: 100vh;
+  width: var(--sidebar-width);
+  background: var(--background-dark);
+  position: fixed;
+  top: var(--navbar-height);
+  left: 0;
+  height: calc(100vh - var(--navbar-height));
+  transition: all 0.3s ease;
+  z-index: 997;
+}
+
+.sidebar-brand-wrapper {
+  height: var(--navbar-height);
+  width: 100%;
+  padding: 0 1.5rem;
+  background: var(--background-dark);
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .sidebar-brand-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  body {
+    padding-left: var(--sidebar-width);
+  }
+  
+  .d-lg-none {
+    display: none !important;
+  }
+  
+  .d-none.d-lg-flex {
+    display: flex !important;
+  }
+  
+  .d-none.d-lg-block {
+    display: block !important;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .sidebar {
+    left: calc(-1 * var(--sidebar-width));
+  }
+
+  .sidebar.show {
+    left: 0;
+  }
+
+  body {
+    padding-left: 0;
+  }
+}
+
+/* Navigation styles */
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-link:hover,
 .nav-link.active {
-background: rgba(0, 0, 0, 0.2) !important;
-position: relative;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.2);
 }
 
 .nav-link.active::before {
-content: '';
-position: absolute;
-left: 0;
-top: 0;
-bottom: 0;
-width: 4px;
-background-color: #0090e7;
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: #000000;
+}
+
+.menu-icon {
+  margin-right: 1rem;
+  font-size: 1.2rem;
+}
+
+.menu-title {
+  font-size: 0.9rem;
+}
+
+/* Dropdown styles */
+.dropdown-menu {
+  min-width: 280px;
+  background: var(--background-dark);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: absolute;
+  right: 0;
+  top: 100%;
+  display: none;
+}
+
+.dropdown-menu.show {
+  display: block;
+}
+
+.preview-item {
+  display: flex;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.preview-item:hover {
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
+}
+
+/* Main content area */
+.main-content {
+  padding-top: var(--navbar-height);
+  min-height: 100vh;
+  transition: all 0.3s ease;
 }
 </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="navbar-brand-wrapper d-flex d-lg-none">
+    
+        <button class="navbar-toggler" type="button" id="sidebarToggle">
+          <span class="mdi mdi-menu" style="color: white;"></span>
+        </button>
+    </div>
+   
+  </nav>
+
+  <!-- Sidebar -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-brand-wrapper d-none d-lg-flex">
+      <a class="sidebar-brand brand-logo" href="/admin">
+        <img src="/assets/images/logo.svg" alt="logo" />
+      </a>
+      <a class="sidebar-brand brand-logo-mini" href="/admin">
+        <img src="/assets/images/logo-mini.svg" alt="logo" />
+      </a>
+    </div>
+    <ul class="nav mt-3">
+      <li class="nav-item nav-category">
+        <span class="nav-link">Navigation</span>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/admin/dashboard" id="dashboard-link">
+          <span class="menu-icon"><i class="mdi mdi-speedometer"></i></span>
+          <span class="menu-title">Dashboard</span>
+        </a>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/admin/offers" id="offers-link">
+          <span class="menu-icon"><i class="mdi mdi-sale"></i></span>
+          <span class="menu-title">Offers</span>
+        </a>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/admin/coupon" id="coupon-link">
+          <span class="menu-icon"><i class="mdi mdi-ticket-percent"></i></span>
+          <span class="menu-title">Coupons</span>
+        </a>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/admin/users" id="users-link">
+          <span class="menu-icon"><i class="mdi mdi-account-circle"></i></span>
+          <span class="menu-title">Users</span>
+        </a>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/admin/product" id="product-link">
+          <span class="menu-icon"><i class="mdi mdi-clipboard-list"></i></span>
+          <span class="menu-title">Product</span>
+          <i class="menu-arrow"></i>
+        </a>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/admin/category" id="category-link">
+          <span class="menu-icon"><i class="mdi mdi-shape"></i></span>
+          <span class="menu-title">Category</span>
+        </a>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/admin/orders" id="orders-link">
+          <span class="menu-icon"><i class="mdi mdi-basket"></i></span>
+          <span class="menu-title">Orders</span>
+        </a>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/logout">
+          <span class="menu-icon"><i class="mdi mdi-logout"></i></span>
+          <span class="menu-title">Logout</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
 
 <script>
-// Add this to your JavaScript
 document.addEventListener('DOMContentLoaded', function() {
-// Get current path
-const currentPath = window.location.pathname;
+  const sidebar = document.getElementById('sidebar');
+  const sidebarToggle = document.getElementById('sidebarToggle');
 
-// Remove any existing active classes
-document.querySelectorAll('.nav-link').forEach(link => {
-link.classList.remove('active');
-});
+  // Toggle sidebar
+  if (sidebarToggle) {
+    sidebarToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      sidebar.classList.toggle('show');
+    });
+  }
 
-// Add active class based on current path
-const linkMap = {
-'/admin/dashboard': 'dashboard-link',
-'/admin/offers': 'offers-link',
-'/admin/coupon': 'coupon-link',
-'/admin/users': 'users-link',
-'/admin/product': 'product-link',
-'/admin/category': 'category-link',
-'/admin/orders': 'orders-link'
-};
+  // Close sidebar when clicking outside on mobile
+  document.addEventListener('click', (e) => {
+    if (window.innerWidth < 992) {
+      if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+        sidebar.classList.remove('show');
+      }
+    }
+  });
 
-const linkId = linkMap[currentPath];
-if (linkId) {
-const activeLink = document.getElementById(linkId);
-if (activeLink) {
-activeLink.classList.add('active');
-}
-}
+  // Handle dropdown toggles
+  document.querySelectorAll('[data-toggle="dropdown"]').forEach(dropdownToggle => {
+    dropdownToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      const dropdownMenu = dropdownToggle.nextElementSibling;
+      dropdownMenu.classList.toggle('show');
+    });
+  });
+
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', (e) => {
+    const dropdowns = document.querySelectorAll('.dropdown-menu.show');
+    dropdowns.forEach(dropdown => {
+      if (!dropdown.previousElementSibling.contains(e.target)) {
+        dropdown.classList.remove('show');
+      }
+    });
+  });
+
+  // Active state handling
+  const currentPath = window.location.pathname;
+  const linkMap = {
+    '/admin/dashboard': 'dashboard-link',
+    '/admin/offers': 'offers-link',
+    '/admin/coupon': 'coupon-link',
+    '/admin/users': 'users-link',
+    '/admin/product': 'product-link',
+    '/admin/category': 'category-link',
+    '/admin/orders': 'orders-link'
+  };
+
+  const linkId = linkMap[currentPath];
+  if (linkId) {
+    const activeLink = document.getElementById(linkId);
+    if (activeLink) {
+      activeLink.classList.add('active');
+    }
+  }
 });
 </script>
+</body>
+</html>
