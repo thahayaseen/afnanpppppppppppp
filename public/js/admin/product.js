@@ -510,6 +510,16 @@ const editMaterialInput = document.getElementById('editProductMaterial');
             croppedImagesPreview.appendChild(imgPreview);
 
             // Submit the cropped image
+            Swal.fire({
+                title: 'Processing...',
+                text: 'Please wait.',
+                icon: 'info',
+                allowOutsideClick: false,
+                showConfirmButton: false, // No "OK" button
+                didOpen: () => {
+                  Swal.showLoading(); // Show loading spinner
+                }
+              });
             fetch(`/admin/product/images/edit/${productId}`, {
                 method: 'PATCH',
                 body: formData,
@@ -517,8 +527,14 @@ const editMaterialInput = document.getElementById('editProductMaterial');
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        alert('Cropped image uploaded successfully');
-                       
+                        Swal.close();
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Your image upload success.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                          });
+                          
                         processNextImageForCropping();
 
                     } else {
