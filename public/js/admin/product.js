@@ -540,7 +540,7 @@ const editMaterialInput = document.getElementById('editProductMaterial');
                               window.location.reload(true)
                             } })
                           
-                        processNextImageForCropping();
+                        // processNextImageForCropping();
 
                     } else {
                         alert('Upload failed: ' + data.message);
