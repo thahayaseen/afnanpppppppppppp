@@ -529,7 +529,7 @@ const editMaterialInput = document.getElementById('editProductMaterial');
                 });
 
             // Process the next image for cropping
-            processNextImageForCropping();
+            // processNextImageForCropping();
         }, 'image/jpeg');
     });
 
