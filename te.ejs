@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Categories</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        .product-section {
+            padding: 48px 16px;
+            background: linear-gradient(to bottom right, white, #e6f2ff, white);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .title-underline {
+            height: 4px;
+            width: 100px;
+            background-color: #3b82f6;
+            margin: 12px auto 0;
+            border-radius: 2px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr 1fr);
+            gap: 14px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .product-image-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.1);
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0);
+            transition: background-color 0.3s ease;
+        }
+
+        .product-card:hover .image-overlay {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .product-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .product-description {
+            font-size: 0.875rem;
+            color: #6b7280;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-card:hover .product-description {
+            opacity: 1;
+        }
+
+        @media (min-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .section-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .product-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="product-section">
+        <div class="container">
+            <h2 class="section-title">
+                Explore Our Products
+                <div class="title-underline"></div>
+            </h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="/dashcategory/card.jpg" alt="Business Cards" class="product-image">
+                        <div class="image-overlay"></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Business Cards</h3>
+                        <p class="product-description">Professional design solutions</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="/dashcategory/big-black-organizer-large-book-isolated-grey-background.png" alt="Books" class="product-image">
+                        <div class="image-overlay"></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Books</h3>
+                        <p class="product-description">Quality print & binding</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="/dashcategory/5490635.webp" alt="Certificate" class="product-image">
+                        <div class="image-overlay"></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Certificate</h3>
+                        <p class="product-description">Elegant design</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="/dashcategory/image.png" alt="Documents" class="product-image">
+                        <div class="image-overlay"></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Documents</h3>
+                        <p class="product-description">Precise printing</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="/dashcategory/poster.jpg" alt="Poster" class="product-image">
+                        <div class="image-overlay"></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Poster</h3>
+                        <p class="product-description">Creative displays</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="/dashcategory/notebook.webp" alt="Document Binding" class="product-image">
+                        <div class="image-overlay"></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Document Binding</h3>
+                        <p class="product-description">Professional finish</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="/dashcategory/collection-colorful-labels-christmas-sale.png" alt="Stickers and Labels" class="product-image">
+                        <div class="image-overlay"></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Stickers and Labels</h3>
+                        <p class="product-description">Vibrant designs</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="/dashcategory/retro-vintage-hippie-posters-set-of-120-small-wall-poster-set-wall-collage-for-home-decoration-office-decor-size-6-in-x-4-inch-rock-band-313440.webp" alt="All Products" class="product-image">
+                        <div class="image-overlay"></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">All Products</h3>
+                        <p class="product-description">Explore our collection</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
