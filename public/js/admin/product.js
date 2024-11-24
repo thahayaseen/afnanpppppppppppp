@@ -518,7 +518,8 @@ const editMaterialInput = document.getElementById('editProductMaterial');
                 .then(data => {
                     if (data.success) {
                         alert('Cropped image uploaded successfully');
-                        window.location.reload(true)
+                       
+                        processNextImageForCropping();
 
                     } else {
                         alert('Upload failed: ' + data.message);
@@ -529,7 +530,6 @@ const editMaterialInput = document.getElementById('editProductMaterial');
                 });
 
             // Process the next image for cropping
-            // processNextImageForCropping();
         }, 'image/jpeg');
     });
 
