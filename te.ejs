@@ -1,226 +1,372 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Categories</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Enhanced Product Management</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css">
+    <link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet">
+    
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        .page-header {
+            background: linear-gradient(135deg, #6c757d 0%, #343a40 100%);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+            color: white;
         }
-
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
+        
+        .card {
+            border: none;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            border-radius: 0.5rem;
+            transition: transform 0.2s;
         }
-
-        .product-section {
-            padding: 48px 16px;
-            background: linear-gradient(to bottom right, white, #e6f2ff, white);
+        
+        .card:hover {
+            transform: translateY(-2px);
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+        
+        .table th {
+            background-color: #f8f9fa;
+            border-top: none;
         }
-
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 40px;
-            color: #333;
+        
+        .badge {
+            padding: 0.5em 1em;
         }
-
-        .title-underline {
-            height: 4px;
-            width: 100px;
-            background-color: #3b82f6;
-            margin: 12px auto 0;
-            border-radius: 2px;
+        
+        .cropper-container {
+            background-color: #f8f9fa;
+            margin: 1rem 0;
+            border-radius: 0.5rem;
+            overflow: hidden;
         }
-
-        .product-grid {
+        
+        .crop-controls {
+            background: #fff;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        }
+        
+        .crop-options {
             display: grid;
-            grid-template-columns: repeat(4, 1fr 1fr);
-            gap: 14px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
         }
-
-        .product-card {
-            background-color: white;
-            border-radius: 16px;
+        
+        .preview-container {
+            width: 150px;
+            height: 150px;
             overflow: hidden;
-            border: 1px solid #e5e7eb;
-            transition: all 0.3s ease;
+            margin: 1rem;
+            border: 2px solid #dee2e6;
+            border-radius: 0.5rem;
         }
-
-        .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-
-        .product-image-container {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .product-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .product-card:hover .product-image {
-            transform: scale(1.1);
-        }
-
-        .image-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0);
-            transition: background-color 0.3s ease;
-        }
-
-        .product-card:hover .image-overlay {
-            background-color: rgba(0, 0, 0, 0.2);
-        }
-
-        .product-info {
-            padding: 20px;
-            text-align: center;
-        }
-
-        .product-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 8px;
-        }
-
-        .product-description {
+        
+        .material-tag {
+            display: inline-block;
+            background: #e9ecef;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            margin: 0.25rem;
             font-size: 0.875rem;
-            color: #6b7280;
-            opacity: 0;
-            transition: opacity 0.3s ease;
         }
-
-        .product-card:hover .product-description {
-            opacity: 1;
+        
+        .material-tag .remove-material {
+            margin-left: 0.5rem;
+            cursor: pointer;
+            color: #dc3545;
         }
-
-        @media (min-width: 768px) {
-            .product-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .section-title {
-                font-size: 3rem;
-            }
+        
+        .image-preview {
+            position: relative;
+            display: inline-block;
+            margin: 0.5rem;
         }
-
-        @media (min-width: 1024px) {
-            .product-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
+        
+        .image-preview img {
+            max-width: 150px;
+            max-height: 150px;
+            border-radius: 0.25rem;
+        }
+        
+        .image-preview .remove-image {
+            position: absolute;
+            top: -0.5rem;
+            right: -0.5rem;
+            background: #dc3545;
+            color: white;
+            border-radius: 50%;
+            padding: 0.25rem 0.5rem;
+            cursor: pointer;
         }
     </style>
 </head>
+
 <body>
-    <section class="product-section">
-        <div class="container">
-            <h2 class="section-title">
-                Explore Our Products
-                <div class="title-underline"></div>
-            </h2>
-            <div class="product-grid">
-                <div class="product-card">
-                    <div class="product-image-container">
-                        <img src="/dashcategory/card.jpg" alt="Business Cards" class="product-image">
-                        <div class="image-overlay"></div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">Business Cards</h3>
-                        <p class="product-description">Professional design solutions</p>
+    <div class="container-fluid">
+        <div class="sidebar bg-light">
+            <%- include('./admin_parts/sidebar') %>
+          </div>
+          <div class="container-fluid page-body-wrapper">
+            <div class="header">
+              <%- include("./admin_parts/hedder") %>
+            </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="page-header">
+                    <h3 class="m-0">Product Management</h3>
+                </div>
+                
+                <div class="mb-4">
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#addProductModal">
+                        <i class="mdi mdi-plus"></i> Add Product
+                    </button>
+                </div>
+                
+                <!-- Products Table -->
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Manage Products</h4>
+                        <div class="table-responsive">
+                    
+                                <table class="table table-hover">
+                                    <thead>
+                                      <tr>
+                                        <th>#</th>
+                                        <th>Product Name</th>
+                                        <th>Category Name</th>
+                                        <th>Price</th>
+                                        <th>Offer</th>
+                                        <th>Stock</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <% Products.forEach((Product, index)=> { %>
+                                        <tr>
+                                          <td><%= index + 1 + (pagination.currentPage - 1) * pagination.limit %></td>
+                                          <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">
+                                            <p style="line-height: 1.5;"><%= Product.name %></p>
+                                          </td>
+                                          <td><%=Product.category_id.name%></td>
+                                          <td>₹<%= Product.price %></td>
+                                          <td><%= Product.offer %>%</td>
+                                          <td><%= Product.stock %></td>
+                                          <td>
+                                            <% if (Product.stock > 0) { %>
+                                              <label class="badge badge-success">In Stock</label>
+                                            <% } else { %>
+                                              <label class="badge badge-danger">Out of Stock</label>
+                                            <% } %>
+                                          </td>
+                                          <td>
+                                            <button class="btn btn-info btn-md edit-btn" data-id="<%= Product._id %>"
+                                              data-name="<%= Product.name %>" data-category="<%=Product.category_id._id%>"
+                                              data-description="<%= Product.description %>" data-price="<%= Product.price %>"
+                                              data-material="<%=Product.material%>"
+                                              data-stock="<%=Product.stock%>" data-offer="<%=Product.offer  %>" data-offer="<%=Product.offer%>"
+                                              data-images='<%= JSON.stringify(Product.images) %>'>
+                                              Edit
+                                            </button>
+                                            <button class="btn btn-md <%= Product.unlist ? 'btn-danger' : 'btn-success' %> unlist-btn"
+                                              data-id="<%= Product._id %>">
+                                              <%= Product.unlist ? 'Unlist' : 'Listed' %>
+                                            </button>
+                                          </td>
+                                        </tr>
+                                      <% }) %>
+                                    </tbody>
+                                  
+                            </table>
+                        </div>
                     </div>
                 </div>
-                <div class="product-card">
-                    <div class="product-image-container">
-                        <img src="/dashcategory/big-black-organizer-large-book-isolated-grey-background.png" alt="Books" class="product-image">
-                        <div class="image-overlay"></div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">Books</h3>
-                        <p class="product-description">Quality print & binding</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image-container">
-                        <img src="/dashcategory/5490635.webp" alt="Certificate" class="product-image">
-                        <div class="image-overlay"></div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">Certificate</h3>
-                        <p class="product-description">Elegant design</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image-container">
-                        <img src="/dashcategory/image.png" alt="Documents" class="product-image">
-                        <div class="image-overlay"></div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">Documents</h3>
-                        <p class="product-description">Precise printing</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image-container">
-                        <img src="/dashcategory/poster.jpg" alt="Poster" class="product-image">
-                        <div class="image-overlay"></div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">Poster</h3>
-                        <p class="product-description">Creative displays</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image-container">
-                        <img src="/dashcategory/notebook.webp" alt="Document Binding" class="product-image">
-                        <div class="image-overlay"></div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">Document Binding</h3>
-                        <p class="product-description">Professional finish</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image-container">
-                        <img src="/dashcategory/collection-colorful-labels-christmas-sale.png" alt="Stickers and Labels" class="product-image">
-                        <div class="image-overlay"></div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">Stickers and Labels</h3>
-                        <p class="product-description">Vibrant designs</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image-container">
-                        <img src="/dashcategory/retro-vintage-hippie-posters-set-of-120-small-wall-poster-set-wall-collage-for-home-decoration-office-decor-size-6-in-x-4-inch-rock-band-313440.webp" alt="All Products" class="product-image">
-                        <div class="image-overlay"></div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">All Products</h3>
-                        <p class="product-description">Explore our collection</p>
+                
+                <!-- Enhanced Edit Product Modal -->
+                <div class="modal fade" id="editProductModal" tabindex="-1">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Edit Product</h5>
+                                <button type="button" class="close" data-dismiss="modal">
+                                    <span>&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="editProductForm">
+                                    <div class="form-group">
+                                        <label for="productName">Product Name</label>
+                                        <input type="text" class="form-control bg-dark text-light" id="productName" name="productName" placeholder="Product Name">
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="productCategory">Category</label>
+                                        <select class="form-control bg-dark text-light" id="productCategory" name="productCategory">
+                                          <option value="">Select Category</option>
+                                          <% categories.forEach(category => { %>
+                                            <option value="<%= category._id %>"><%= category.name %></option>
+                                          <% }) %>
+                                        </select>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="productDescription">Description</label>
+                                        <textarea class="form-control bg-dark text-light" id="productDescription" name="productDescription" rows="4" placeholder="Product Description"></textarea>
+                                      </div>
+                                      <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                          <label for="productPrice">Price</label>
+                                          <input type="number" min="0" class="form-control bg-dark text-light" id="productprice" name="productPrice" placeholder="Product Price">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                          <label for="productStock">Stock</label>
+                                          <input type="number" min="0" class="form-control bg-dark text-light" id="productStock" name="productStock" placeholder="Product Stock">
+                                        </div>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="productOffer">Offer (%)</label>
+                                        <input type="number" min="0" max="99" class="form-control bg-dark text-light" id="productOffer" name="productOffer" placeholder="Offer Percentage (0-99)">
+                                      </div>
+                                      <!-- New Materials Section -->
+                                      <div class="form-group">
+                                        <label for="editProductMaterial">Materials</label>
+                                        <div class="input-group">
+                                          <input type="text" class="form-control bg-dark text-light" id="editProductMaterial" placeholder="Enter a material">
+                                          <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="button" id="editAddMaterialBtn">Add</button>
+                                          </div>
+                                        </div>
+                                        <small class="form-text text-muted">Press 'Add' or Enter to add a material</small>
+                                        <div id="editMaterialList" class="mt-2"></div>
+                                        <input type="hidden" id="editProductMaterials" name="editProductMaterials">
+                                      </div>
+                                      <!-- End of New Materials Section -->
+                                      <div class="form-group">
+                                        <label for="productImages">Upload New Images</label>
+                                        <input type="file" class="form-control-file bg-dark text-light" id="productImageInput" name="productImages" accept="image/*" multiple>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="currentImages">Crop Uploaded Images</label>
+                                        <div id="cropperContainer" class="d-flex flex-wrap">
+                                          <img id="cropperImage" src="" alt="Image to crop" style="max-width: 300px; max-height: 300px; display: none;" />
+                                        </div>
+                                        <div id="cropControls" style="display:none;">
+                                          <button type="button" class="btn btn-success" id="saveCroppedImage">Save Cropped Image</button>
+                                        </div>
+                                      </div>
+                                      <div id="croppedImagesPreview" class="d-flex flex-wrap"></div>
+                                      <div class="form-group">
+                                        <label for="currentImages" class="d-none">Current Images</label>
+                                        <div id="currentImages" class="d-flex flex-wrap"></div>
+                                      </div>
+                                      <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                      <button type="reset" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    
+                                    <!-- Enhanced Image Cropping Section -->
+                                    <div class="form-group">
+                                        <label>Image Cropping</label>
+                                        <div class="cropper-container">
+                                            <img id="cropperImage" src="" style="max-width: 100%;">
+                                        </div>
+                                        <div class="crop-controls">
+                                            <div class="crop-options">
+                                                <button type="button" class="btn btn-outline-secondary btn-sm" id="rotateLeft">
+                                                    <i class="mdi mdi-rotate-left"></i> Rotate Left
+                                                </button>
+                                                <button type="button" class="btn btn-outline-secondary btn-sm" id="rotateRight">
+                                                    <i class="mdi mdi-rotate-right"></i> Rotate Right
+                                                </button>
+                                                <button type="button" class="btn btn-outline-secondary btn-sm" id="flipHorizontal">
+                                                    <i class="mdi mdi-flip-horizontal"></i> Flip H
+                                                </button>
+                                                <button type="button" class="btn btn-outline-secondary btn-sm" id="flipVertical">
+                                                    <i class="mdi mdi-flip-vertical"></i> Flip V
+                                                </button>
+                                            </div>
+                                            <div class="crop-options">
+                                                <select class="form-control" id="aspectRatio">
+                                                    <option value="NaN">Free</option>
+                                                    <option value="1">1:1</option>
+                                                    <option value="1.5">3:2</option>
+                                                    <option value="1.778">16:9</option>
+                                                </select>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-outline-secondary btn-sm" id="zoomIn">
+                                                        <i class="mdi mdi-plus"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-outline-secondary btn-sm" id="zoomOut">
+                                                        <i class="mdi mdi-minus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="preview-container">
+                                                <div id="preview"></div>
+                                            </div>
+                                            <button type="button" class="btn btn-success" id="saveCroppedImage">
+                                                <i class="mdi mdi-content-save"></i> Save Cropped Image
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let cropper;
+            
+            // Initialize cropper
+            function initCropper(image) {
+                cropper = new Cropper(image, {
+                    aspectRatio: NaN,
+                    viewMode: 2,
+                    preview: '#preview',
+                    crop(event) {
+                        // Update crop data if needed
+                    }
+                });
+            }
+            
+            // Cropper controls
+            document.getElementById('rotateLeft').addEventListener('click', () => cropper.rotate(-90));
+            document.getElementById('rotateRight').addEventListener('click', () => cropper.rotate(90));
+            document.getElementById('flipHorizontal').addEventListener('click', () => cropper.scaleX(-cropper.getData().scaleX || -1));
+            document.getElementById('flipVertical').addEventListener('click', () => cropper.scaleY(-cropper.getData().scaleY || -1));
+            document.getElementById('zoomIn').addEventListener('click', () => cropper.zoom(0.1));
+            document.getElementById('zoomOut').addEventListener('click', () => cropper.zoom(-0.1));
+            
+            // Aspect ratio handling
+            document.getElementById('aspectRatio').addEventListener('change', function(e) {
+                cropper.setAspectRatio(parseFloat(e.target.value));
+            });
+            
+            // Save cropped image
+            document.getElementById('saveCroppedImage').addEventListener('click', function() {
+                const canvas = cropper.getCroppedCanvas();
+                const croppedImage = canvas.toDataURL('image/jpeg');
+                
+                // Add preview of cropped image
+                const preview = document.createElement('div');
+                preview.className = 'image-preview';
+                preview.innerHTML = `
+                    <img src="${croppedImage}" alt="Cropped">
+                    <span class="remove-image">&times;</span>
+                `;
+                document.getElementById('croppedImagesPreview').appendChild(preview);
+            });
+        });
+    </script>
 </body>
 </html>

@@ -543,7 +543,7 @@ const editMaterialInput = document.getElementById('editProductMaterial');
             cropControls.style.display = 'none';
             cropperImage.style.display = 'none';
             imagesToCrop = [];
-            window.location.href = '/admin/product'
+            window.location.reload(true)
             // Clear imagesToCrop array
         }
     }
