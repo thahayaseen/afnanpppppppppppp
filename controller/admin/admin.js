@@ -109,9 +109,9 @@ const list = async (req, res, next) => {
 };
 //add product
 const padd = async (req, res, next) => {
-    const { newProductName, newProductCategory, newProductDescription, newProductPrice, newProductStock, newProductOffer } = req.body
+    const { newProductName, newProductCategory, newProductDescription, newProductPrice, newProductStock, newProductOffer,newProductMaterials } = req.body
     const fiels = req.files
-    console.log(fiels);
+    console.log(req.body);
     let image = []
     fiels.forEach(num => {
         image.push(num.filename)
@@ -126,7 +126,8 @@ const padd = async (req, res, next) => {
         price: newProductPrice,
         stock: newProductStock,
         offer: newProductOffer,
-        images: image
+        images: image,
+        material:newProductMaterials
 
     });
     image = []
@@ -139,7 +140,11 @@ const submitedit = async (req, res) => {
     const productId = req.params.id;
     const product = await Product.findById(productId);
 
-    const { productName, productCategory, productDescription, productStock, productPrice, productOffer } = req.body;
+    const { productName, productCategory, productDescription, productStock, productPrice, productOffer,material } = req.body;
+    console.log('is the mati'+JSON.parse(material));
+    console.log('is the mati'+material);
+    console.log('is the mati'+material.split(','));
+    
 
     if (productName && productCategory && productDescription && productStock && productPrice) {
         product.name = productName;
@@ -148,6 +153,7 @@ const submitedit = async (req, res) => {
         product.stock = productStock;
         product.price = productPrice;
         product.offer = productOffer;
+        product.material=material
         product.save()
         return res.status(200).json({ success: true })
     }
@@ -191,7 +197,7 @@ const imageadding = async function updateProduct(req, res) {
                 product.images.push(name);
             }
         }
-        // Remove deleted images from the product's image array
+     
         if (deletedImages.length > 0) {
             product.images = product.images.filter(image => !deletedImages.includes(image));
 

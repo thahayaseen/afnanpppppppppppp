@@ -85,6 +85,7 @@
                               <button class="btn btn-info btn-md edit-btn" data-id="<%= Product._id %>"
                                 data-name="<%= Product.name %>" data-category="<%=Product.category_id._id%>"
                                 data-description="<%= Product.description %>" data-price="<%= Product.price %>"
+                                data-material="<%=Product.material%>"
                                 data-stock="<%=Product.stock%>" data-offer="<%=Product.offer  %>" data-offer="<%=Product.offer%>"
                                 data-images='<%= JSON.stringify(Product.images) %>'>
                                 Edit
@@ -154,6 +155,20 @@
                       <label for="productOffer">Offer (%)</label>
                       <input type="number" min="0" max="99" class="form-control bg-dark text-light" id="productOffer" name="productOffer" placeholder="Offer Percentage (0-99)">
                     </div>
+                    <!-- New Materials Section -->
+                    <div class="form-group">
+                      <label for="editProductMaterial">Materials</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control bg-dark text-light" id="editProductMaterial" placeholder="Enter a material">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary" type="button" id="editAddMaterialBtn">Add</button>
+                        </div>
+                      </div>
+                      <small class="form-text text-muted">Press 'Add' or Enter to add a material</small>
+                      <div id="editMaterialList" class="mt-2"></div>
+                      <input type="hidden" id="editProductMaterials" name="editProductMaterials">
+                    </div>
+                    <!-- End of New Materials Section -->
                     <div class="form-group">
                       <label for="productImages">Upload New Images</label>
                       <input type="file" class="form-control-file bg-dark text-light" id="productImageInput" name="productImages" accept="image/*" multiple>
@@ -215,6 +230,18 @@
                         <label for="newProductStock">Stock</label>
                         <input type="number" class="form-control bg-dark text-light" min="0" id="newProductStock" name="newProductStock" placeholder="Product Stock" required>
                       </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="newProductMaterial">Materials</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control bg-dark text-light" id="newProductMaterial" placeholder="Enter a material">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary" type="button" id="addMaterialBtn">Add</button>
+                        </div>
+                      </div>
+                      <small class="form-text text-muted">Press 'Add' or Enter to add a material</small>
+                      <div id="materialList" class="mt-2"></div>
+                      <input type="hidden" id="newProductMaterials" name="newProductMaterials">
                     </div>
                     <div class="form-group">
                       <label for="newProductOffer">Offer (%)</label>
