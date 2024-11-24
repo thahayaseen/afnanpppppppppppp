@@ -532,8 +532,13 @@ const editMaterialInput = document.getElementById('editProductMaterial');
                             title: 'Success!',
                             text: 'Your image upload success.',
                             icon: 'success',
+                            allowOutsideClick: false,
+                showConfirmButton: false,
                             confirmButtonText: 'OK'
-                          });
+                          }).then((result) => {
+                            if (result.isConfirmed) {
+                              window.location.reload(true)
+                            } })
                           
                         processNextImageForCropping();
 
