@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
-
+let types=mongoose.Schema({
+    key:String,
+    value:Array
+})
 // Define the category schema
 const categorySchema = new mongoose.Schema({
     name: {
@@ -14,6 +17,9 @@ const categorySchema = new mongoose.Schema({
     list:{
         type:Boolean,
         default:true
+    },
+    types:{
+       type: [types]
     }
 }, { timestamps: true });
 
